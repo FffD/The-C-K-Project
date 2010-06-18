@@ -1,16 +1,29 @@
 package application;
 
 public final class Consts {
+
+	public static final int NOT_FOUND = -1;
+	/** System property - <tt>line.separator</tt>*/
+	public static final String NEW_LINE = System.getProperty("line.separator");
+	/** System property - <tt>file.separator</tt>*/
+	public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+	/** System property - <tt>path.separator</tt>*/
+	public static final String PATH_SEPARATOR = System.getProperty("path.separator");
 	
- public final static String demandeC0 = "Entrez un C0, tapez Entr√©e pour valider";
- public final static String demandeK0 = "Entrez un K0, tapez Entr√©e pour valider";
- public final static String demandeCorK = "Pour ajouter une connaissance, tapez K \n Pour partitionner un concept, tapez C \n";
- public final static String erreur = "Mauvaise saisie !";
- public final static String taperK = "Entrez un Knowledge, tapez Entr√©e pour valider";
- public final static String taperC = "Entrez un Concept, tapez Entr√©e pour valider";
- public final static String lienC = "Si cette connaissance √† un lien avec un des concept suivants, entrez le num√©ro du concept, sinon tapez -1, suivi d'Entr√©e";
- public final static String partC = "Quel concept voulez vous partitionner? Entrez le num√©ro et tapez Entr√©e";
- public final static String partK = "Quelle connaissance vous permet de partitionner ?" ;
- public final static String partK2 = " Entrez le num√©ro et tapez Entr√©e ou -1 ajouter une connaissance manquante";
- public final static String continuer = "Voulez-vous continuer ?";
+	
+	/** Input Strings **/
+	public final static String initialC = "Entrez un C0, tapez Entrée pour valider";
+	public final static String initialK = "Entrez un K0, tapez Entrée pour valider";
+	public final static String inputCorK = "Pour ajouter une connaissance, tapez K \nPour partitionner un concept, tapez C \n";
+	public final static String inputK = "Entrez un Knowledge, tapez Entrée pour valider";
+	public final static String inputC = "Entrez un Concept, tapez Entrée pour valider";
+	public final static String inputLinkCtoK = "Si cette connaissance à un lien avec un des concept suivants, entrez le numéro du concept, sinon tapez -1, suivi d'Entrée";
+	public final static String inputCtoPartition = "Quel concept voulez vous partitionner? Entrez le numéro et tapez Entrée";
+	public final static String inputKtoPartitionC = "Quelle connaissance vous permet de partitionner ?"+NEW_LINE+"Entrez le numéro et tapez Entrée ou -1 ajouter une connaissance manquante";
+	public final static String inputContinueQuestion = "Voulez-vous continuer ?";
+
+	/** Error messages **/
+	public final static String errorInput = "Mauvaise saisie !";
+	public final static String errorFileRead = "probleme de lecture";
+
 }

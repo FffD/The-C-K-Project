@@ -10,7 +10,7 @@ public class Saisie {
 			return (valeur);
 		}
 		catch (IOException e) {
-			System.out.println ("probleme de lecture");
+			System.out.println ();
 			return ("");
 		}
 	}

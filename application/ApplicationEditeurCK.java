@@ -8,7 +8,7 @@ import vue.VueEditeurCK;
 import modele.CKModel;
 import modele.Concept;
 import modele.Knowledge;
-import application.Constante;
+import application.Consts;
 
 
 public class ApplicationEditeurCK {
@@ -21,16 +21,16 @@ public class ApplicationEditeurCK {
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		
-	/*	int idC = 0, idK = 0;
+		int idC = 0, idK = 0;
 		
 		CKModel<String, String> modele = new CKModel<String, String>();
-		System.out.println(Constante.demandeC0);
+		System.out.println(Consts.initialC);
 		String chaineC = Saisie.saisieChaine();
 		Concept<String> C0 = new Concept<String>(idC,chaineC);
 		idC++;
 		modele.setCSpace(C0);
 		
-		System.out.println(Constante.demandeK0);
+		System.out.println(Consts.initialK);
 		String chaineK = Saisie.saisieChaine();
 		Knowledge<String> K0 = new Knowledge<String>(idK,chaineK);
 		modele.setElementKSpace(K0);
@@ -40,27 +40,27 @@ public class ApplicationEditeurCK {
 		String recommence, choix;
 		
 		do{
-			System.out.println(Constante.demandeCorK);
+			System.out.println(Consts.inputCorK);
 			choix = Saisie.saisieChaine();
 			while(choix.compareTo("c") != 0 && choix.compareTo("k") != 0){
-				System.out.println(Constante.erreur);
-				System.out.println(Constante.demandeCorK);
+				System.out.println(Consts.errorInput);
+				System.out.println(Consts.inputCorK);
 				choix = Saisie.saisieChaine();
 			}
 			if (choix.compareTo("k") == 0){
-				System.out.println(Constante.taperK);
+				System.out.println(Consts.inputK);
 				String kChaine = Saisie.saisieChaine();
 				Knowledge<String> K = new Knowledge<String>(idK,kChaine);
 				modele.setElementKSpace(K);
 				idK++;
-				System.out.println(Constante.lienC);
+				System.out.println(Consts.inputLinkCtoK);
 				for(int i=0; i<idC; i++){
 					System.out.println(modele.researchIdConcept(i).toString());
 				}
 				int numlien = Saisie.saisieValeur();
 				while(numlien < -1 || numlien > idC){
-					System.out.println(Constante.erreur);
-					System.out.println(Constante.lienC);
+					System.out.println(Consts.errorInput);
+					System.out.println(Consts.inputLinkCtoK);
 					for(int i=0; i<idC; i++){
 						System.out.println(modele.researchIdConcept(i).toString());
 					}
@@ -71,27 +71,27 @@ public class ApplicationEditeurCK {
 				}
 			}
 			if (choix.compareTo("c") == 0){
-				System.out.println(Constante.partC);
+				System.out.println(Consts.inputCtoPartition);
 				for(int i=0; i<idC; i++){
 					System.out.println(modele.researchIdConcept(i).toString());
 				}
 				int numPere = Saisie.saisieValeur();
 				while(numPere < 0 || numPere > idC){
-					System.out.println(Constante.erreur);
-					System.out.println(Constante.partC);
+					System.out.println(Consts.errorInput);
+					System.out.println(Consts.inputCtoPartition);
 					for(int i=0; i<idC; i++){
 						System.out.println(modele.researchIdConcept(i).toString());
 					}
 					numPere = Saisie.saisieValeur();
 				}
 				
-				System.out.println(Constante.partK + Constante.partK2);
+				System.out.println(Consts.inputKtoPartitionC);
 				for (int i = 0; i<modele.getKSpace().size(); i++){
 					modele.getKSpace().get(i).toString();
 				}
 				int part = Saisie.saisieValeur();
 				if(part ==  -1){
-					System.out.println(Constante.taperK);
+					System.out.println(Consts.inputK);
 					String kChaine = Saisie.saisieChaine();
 					Knowledge<String> K = new Knowledge<String>(idK,kChaine);
 					modele.setElementKSpace(K);
@@ -99,15 +99,15 @@ public class ApplicationEditeurCK {
 					idK++;
 				} else{
 					while (part < -1 || part > idK){
-						System.out.println(Constante.erreur);
-						System.out.println(Constante.partK);
+						System.out.println(Consts.errorInput);
+						System.out.println(Consts.inputKtoPartitionC);
 						for (int i = 0; i<modele.getKSpace().size(); i++){
 							modele.getKSpace().get(i).toString();
 						}
 						part = Saisie.saisieValeur();
 					}
 				}
-				System.out.println(Constante.taperC);
+				System.out.println(Consts.inputC);
 				String chaine = Saisie.saisieChaine();
 				Concept<String> C = new Concept<String>(idC,chaine);
 				idC++;
@@ -117,12 +117,13 @@ public class ApplicationEditeurCK {
 			
 			
 			
-		System.out.println(Constante.continuer);
+		System.out.println(Consts.inputContinueQuestion);
 		recommence = Saisie.saisieChaine();
 		} while(recommence.compareTo("oui") == 0);
 		
-		modele.print(); */
-		
+		modele.print();
+		 
+		/*
 		CKModel<String, String> modele = new CKModel<String, String>();
 		System.out.println("Entrez un C0, tapez Entrée pour valider");
 		String chaineC = Saisie.saisieChaine();
@@ -160,12 +161,13 @@ public class ApplicationEditeurCK {
 		
 		System.out.println(modele.toString());
 		modele.print();
-		/*
-		 * tracer un trait avec java 2D ou graphics 2D
-		 */
+		
+		
+		//tracer un trait avec java 2D ou graphics 2D
 		
 		VueEditeurCK vue = new VueEditeurCK();
 		vue.dessiner();
+		*/
 	} 
 		
 

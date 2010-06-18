@@ -53,7 +53,7 @@ public class VueHelp {
 													"Enregistrer le graphe : Permet d'enregistrer le travail effectuer, " +
 													"sous forme de fichier de sauvegarde " + System.getProperty("line.separator") +
 													"Charger un graphe : Permet de charger un fichier de sauvegarde, " +
-													"pour continuer son travail",5,10);
+													"pour inputContinueQuestion son travail",5,10);
 		textActionHelp.setLineWrap(true);
 		textActionHelp.setEditable(false);
 		scrollPane2 = new JScrollPane(textActionHelp, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
