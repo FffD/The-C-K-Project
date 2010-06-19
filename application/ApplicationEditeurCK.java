@@ -18,10 +18,83 @@ public class ApplicationEditeurCK {
 	 * @throws FileNotFoundException 
 	 */
 	
+	public static void CreateK(CKModel<String,String> _modele, int _idK, int _idC){
+
+		System.out.println(Constante.taperK);
+		String kChaine = Saisie.saisieChaine();
+		Knowledge<String> K = new Knowledge<String>(_idK,kChaine);
+		_modele.setElementKSpace(K);
+		_idK++;
+		System.out.println(Constante.lienC);
+		for(int i=0; i<_idC; i++){
+			System.out.println(_modele.researchIdConcept(i).toString());
+		}
+		int numlien = Saisie.saisieValeur();
+		while(numlien < -1 || numlien > _idC){
+			System.out.println(Constante.erreur);
+			System.out.println(Constante.lienC);
+			for(int i=0; i<_idC; i++){
+				System.out.println(_modele.researchIdConcept(i).toString());
+			}
+			numlien = Saisie.saisieValeur();
+		}
+		if(numlien != -1){
+		_modele.addLink(_modele.researchIdConcept(numlien), K);
+		}
+		
+	}
+	
+	
+	public static void CreateC(CKModel<String,String> _modele, int _idK, int _idC){
+
+		System.out.println(Constante.partC);
+		for(int i=0; i<_idC; i++){
+			System.out.println(_modele.researchIdConcept(i).toString());
+		}
+		int numPere = Saisie.saisieValeur();
+		while(numPere < 0 || numPere > _idC){
+			System.out.println(Constante.erreur);
+			System.out.println(Constante.partC);
+			for(int i=0; i<_idC; i++){
+				System.out.println(_modele.researchIdConcept(i).toString());
+			}
+			numPere = Saisie.saisieValeur();
+		}
+		
+		System.out.println(Constante.partK + Constante.partK2);
+		for (int i = 0; i<_modele.getKSpace().size(); i++){
+			_modele.getKSpace().get(i).toString();
+		}
+		int part = Saisie.saisieValeur();
+		if(part ==  -1){
+			System.out.println(Constante.taperK);
+			String kChaine = Saisie.saisieChaine();
+			Knowledge<String> K = new Knowledge<String>(_idK,kChaine);
+			_modele.setElementKSpace(K);
+			part = _idK;
+			_idK++;
+		} else{
+			while (part < -1 || part > _idK){
+				System.out.println(Constante.erreur);
+				System.out.println(Constante.partK);
+				for (int i = 0; i<_modele.getKSpace().size(); i++){
+					_modele.getKSpace().get(i).toString();
+				}
+				part = Saisie.saisieValeur();
+			}
+		}
+		System.out.println(Constante.taperC);
+		String chaine = Saisie.saisieChaine();
+		Concept<String> C = new Concept<String>(_idC,chaine);
+		_idC++;
+		_modele.setCSpace(C);
+		_modele.addLink(C, _modele.getKSpace().elementAt(part));
+	
+	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		
-	/*	int idC = 0, idK = 0;
+/*		int idC = 0, idK = 0;
 		
 		CKModel<String, String> modele = new CKModel<String, String>();
 		System.out.println(Constante.demandeC0);
@@ -48,71 +121,10 @@ public class ApplicationEditeurCK {
 				choix = Saisie.saisieChaine();
 			}
 			if (choix.compareTo("k") == 0){
-				System.out.println(Constante.taperK);
-				String kChaine = Saisie.saisieChaine();
-				Knowledge<String> K = new Knowledge<String>(idK,kChaine);
-				modele.setElementKSpace(K);
-				idK++;
-				System.out.println(Constante.lienC);
-				for(int i=0; i<idC; i++){
-					System.out.println(modele.researchIdConcept(i).toString());
-				}
-				int numlien = Saisie.saisieValeur();
-				while(numlien < -1 || numlien > idC){
-					System.out.println(Constante.erreur);
-					System.out.println(Constante.lienC);
-					for(int i=0; i<idC; i++){
-						System.out.println(modele.researchIdConcept(i).toString());
-					}
-					numlien = Saisie.saisieValeur();
-				}
-				if(numlien != -1){
-				modele.addLink(modele.researchIdConcept(numlien), K);
-				}
+				CreateK(modele, idK, idC);
 			}
 			if (choix.compareTo("c") == 0){
-				System.out.println(Constante.partC);
-				for(int i=0; i<idC; i++){
-					System.out.println(modele.researchIdConcept(i).toString());
-				}
-				int numPere = Saisie.saisieValeur();
-				while(numPere < 0 || numPere > idC){
-					System.out.println(Constante.erreur);
-					System.out.println(Constante.partC);
-					for(int i=0; i<idC; i++){
-						System.out.println(modele.researchIdConcept(i).toString());
-					}
-					numPere = Saisie.saisieValeur();
-				}
-				
-				System.out.println(Constante.partK + Constante.partK2);
-				for (int i = 0; i<modele.getKSpace().size(); i++){
-					modele.getKSpace().get(i).toString();
-				}
-				int part = Saisie.saisieValeur();
-				if(part ==  -1){
-					System.out.println(Constante.taperK);
-					String kChaine = Saisie.saisieChaine();
-					Knowledge<String> K = new Knowledge<String>(idK,kChaine);
-					modele.setElementKSpace(K);
-					part = idK;
-					idK++;
-				} else{
-					while (part < -1 || part > idK){
-						System.out.println(Constante.erreur);
-						System.out.println(Constante.partK);
-						for (int i = 0; i<modele.getKSpace().size(); i++){
-							modele.getKSpace().get(i).toString();
-						}
-						part = Saisie.saisieValeur();
-					}
-				}
-				System.out.println(Constante.taperC);
-				String chaine = Saisie.saisieChaine();
-				Concept<String> C = new Concept<String>(idC,chaine);
-				idC++;
-				modele.setCSpace(C);
-				modele.addLink(C, modele.getKSpace().elementAt(part));
+				CreateC(modele, idK, idC);
 			}
 			
 			
@@ -160,9 +172,7 @@ public class ApplicationEditeurCK {
 		
 		System.out.println(modele.toString());
 		modele.print();
-		/*
-		 * tracer un trait avec java 2D ou graphics 2D
-		 */
+		
 		
 		VueEditeurCK vue = new VueEditeurCK();
 		vue.dessiner();
