@@ -12,18 +12,18 @@ public final class Consts {
 	
 	
 	/** Input Strings **/
-	public final static String initialC = "Entrez un C0, tapez Entr\u00E9e pour valider";
-	public final static String initialK = "Entrez un K0, tapez Entr\u00E9e pour valider";
-	public final static String inputCorK = "Pour ajouter une connaissance, tapez K \nPour partitionner un concept, tapez C \n";
-	public final static String inputK = "Entrez un Knowledge, tapez Entr\u00E9e pour valider";
-	public final static String inputC = "Entrez un Concept, tapez Entr\u00E9e pour valider";
-	public final static String inputLinkCtoK = "Si cette connaissance \u00E0 un lien avec un des concept suivants, entrez le num\u00E9ro du concept, sinon tapez -1, suivi d'Entr\u00E9e";
-	public final static String inputCtoPartition = "Quel concept voulez vous partitionner? Entrez le num\u00E9ro et tapez Entr\u00E9e";
-	public final static String inputKtoPartitionC = "Quelle connaissance vous permet de partitionner ?"+NEW_LINE+"Entrez le num\u00E9ro et tapez Entr\u00E9e ou -1 ajouter une connaissance manquante";
-	public final static String inputContinueQuestion = "Voulez-vous continuer ?";
+	public final static String initialC = "Enter your C0 and press return to validate";
+	public final static String initialK = "Enter your K0 and press return to validate";
+	public final static String inputCorK = "To add some knowledge please press K\nTo partition a concept please press C\n";
+	public final static String inputK = "Enter some knowledge and press return to validate";
+	public final static String inputC = "Enter a concept and press return to validate";
+	public final static String inputLinkCtoK = "If this knowledge has a link with one of the following concepts please enter the concept's number, otherwise enter -1 and press return to validate";
+	public final static String inputCtoPartition = "Witch of the following concepts do you wish to partition? enter it's number and press return to validate";
+	public final static String inputKtoPartitionC = "What knowledge allows you to partition?"+NEW_LINE+"Enter it's number and press return or enter -1 to add a missing knowledge for your partition!";
+	public final static String inputContinueQuestion = "Do you want to continue ?";
 
 	/** Error messages **/
-	public final static String errorInput = "Mauvaise saisie !";
-	public final static String errorFileRead = "probleme de lecture";
+	public final static String errorInput = "Error in the input!";
+	public final static String errorFileRead = "Error in reading the file!";
 
 }
