@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.io.FileNotFoundException;
 
@@ -8,6 +9,7 @@ import vue.VueEditeurCK;
 import modele.CKModel;
 import modele.Concept;
 import modele.Knowledge;
+import modele.TreeLayout;
 import application.Constante;
 
 
@@ -139,31 +141,61 @@ public class ApplicationEditeurCK {
 		System.out.println("Entrez un C0, tapez Entrée pour valider");
 		String chaineC = Saisie.saisieChaine();
 		Point p = new Point(32,34);
+		Point p2 =  new Point (67, 56);
+		Dimension d = new Dimension (50,50);
 		Concept<String> C0 = new Concept<String>(0,chaineC,p);
 		modele.setCSpace(C0);
 		Concept<String> C1 = new Concept<String>(1, "fils1", p);
 		modele.addConcept(C1);
-		Concept<String> C2 = new Concept<String>(2, "fils2", p);
+		Concept<String> C2 = new Concept<String>(2, "fils2", p2);
 		modele.addConcept(C2);
-		Concept<String> C3 = new Concept<String>(3, "fils13", p);
+		Concept<String> C3 = new Concept<String>(3, "fils11", p);
 		modele.partition(C3, C1);
 		
 		Knowledge<String> K0 = new Knowledge<String>(0,"know0", p);
 		Knowledge<String> K1 = new Knowledge<String>(1,"know1", p);
-		Knowledge<String> K2 = new Knowledge<String>(2,"know2", p);
+		Knowledge<String> K2 = new Knowledge<String>(2,"know2", p, d);
 		Knowledge<String> K3 = new Knowledge<String>(3,"know3", p);
 		Knowledge<String> K4 = new Knowledge<String>(4,"know4", p);
+
+		Knowledge<String> K5 = new Knowledge<String>(5,"know5", p);
+
+		Knowledge<String> K6 = new Knowledge<String>(6,"know6", p);
+
+		Knowledge<String> K7 = new Knowledge<String>(7,"know7", p, d);
+
+		Knowledge<String> K8 = new Knowledge<String>(8,"know8", p);
+
+		Knowledge<String> K9 = new Knowledge<String>(9,"know9", p);
+
+		Knowledge<String> K10 = new Knowledge<String>(10,"know10", p);
+
+		Knowledge<String> K11 = new Knowledge<String>(11,"know11", p);
+		Knowledge<String> K12 = new Knowledge<String>(12,"know12", p);
+		Knowledge<String> K13 = new Knowledge<String>(13,"know13", p);
+
 		
 		modele.setElementKSpace(K0);
 		modele.setElementKSpace(K1);
 		modele.setElementKSpace(K2);
 		modele.setElementKSpace(K3);
 		modele.setElementKSpace(K4);
+		modele.setElementKSpace(K5);
+		modele.setElementKSpace(K6);
+		modele.setElementKSpace(K7);
+		modele.setElementKSpace(K8);
+	/*	modele.setElementKSpace(K9);
+		modele.setElementKSpace(K10);
+		modele.setElementKSpace(K11);
+		modele.setElementKSpace(K12);
+		modele.setElementKSpace(K13);*/
+
 		
 		modele.addLink(C0, K0);
 		modele.addLink(C3, K2);
 		modele.addLink(C2, K1);
-		
+		TreeLayout tl  = new TreeLayout(modele);
+		tl.buildTree();
 		System.out.println(modele.toString());
 		modele.print();
 		
@@ -174,8 +206,10 @@ public class ApplicationEditeurCK {
 		modele.print();
 		
 		
-		VueEditeurCK vue = new VueEditeurCK();
+		VueEditeurCK vue = new VueEditeurCK(modele);
 		vue.dessiner();
+		vue.getPanel().paint(vue.getPanel().getGraphics());
+		
 	} 
 		
 

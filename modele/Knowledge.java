@@ -1,5 +1,6 @@
 package modele;
 
+import java.awt.Dimension;
 import java.awt.Point;
 
 public class Knowledge<T> {
@@ -7,26 +8,42 @@ public class Knowledge<T> {
 	private Integer _index;
 	private T _data;
 	private Point _position;
+	private Dimension _dimension;
 
 	
 	public Knowledge(){
-		
+		this.setIndex(null);
+		this.setData(null);
+		this.setPosition(null);
+		this.setDimension(null);
 	}
 	
 	public Knowledge(Integer index){
 		this.setIndex(index);
 		this.setData(null);
+		this.setPosition(null);
+		this.setDimension(null);
 	}
 	
 	public Knowledge(Integer index, T data){
 		this.setIndex(index);
 		this.setData(data);
+		this.setPosition(null);
+		this.setDimension(null);
 	}
 	
 	public Knowledge(Integer index, T data, Point position){
 		this.setIndex(index);
 		this.setData(data);
 		this.setPosition(position);
+		this.setDimension(null);
+	}
+	
+	public Knowledge(Integer index, T data, Point position, Dimension dimension){
+		this.setIndex(index);
+		this.setData(data);
+		this.setPosition(position);
+		this.setDimension(dimension);
 	}
 	
 	
@@ -77,6 +94,20 @@ public class Knowledge<T> {
 		return _position;
 	}
 	
+	/**
+	 * @param _dimension the _dimension to set
+	 */
+	public void setDimension(Dimension _dimension) {
+		this._dimension = _dimension;
+	}
+
+	/**
+	 * @return the _dimension
+	 */
+	public Dimension getDimension() {
+		return _dimension;
+	}
+
 	public String toString(){
 		return "K" + this._index + " : " + this._data;
 	}

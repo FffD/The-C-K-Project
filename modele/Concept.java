@@ -101,7 +101,7 @@ public class Concept<T> {
 	}
 	
 	public String toString(){
-		return "C" + this._index + " : " + this._data;
+		return "C" + this._index + " : " + this._data + " X:" +  this._position.x +" Y: " + this._position.y;
 	}
 	
 	
