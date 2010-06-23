@@ -17,6 +17,7 @@ public class CKModel<T,S> {
 	private boolean[][] _ckLinks;
 	private int _cSize;
 	
+
 	public CKModel(){
 		setCSpace(new Concept<T>());
 		setKSpace(new KSpace<Knowledge<S>>());
@@ -129,6 +130,11 @@ public class CKModel<T,S> {
 		}
 	}
 	
+	public void departition(Concept<T> nouveauC0){
+		nouveauC0.addChild(this._cSpace);
+		this.setCSpace(nouveauC0);
+	}
+	
 	public String toString(){
 		return "C-Space : " + _cSpace.toStringArborescence() +"\nK-Space : " + _kSpace.toString();
 	}
@@ -191,6 +197,7 @@ public class CKModel<T,S> {
 			enc.flush();
 			enc.close();
 	 }
+	 
 	 
 	 public void load() throws FileNotFoundException{
 		 
