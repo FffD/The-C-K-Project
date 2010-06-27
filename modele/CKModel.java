@@ -8,23 +8,39 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 
+import application.Consts;
+
 
 
 public class CKModel<T,S> {
+	//Nombre maximal de C ou de K dans un modèle:
 	private static int _size = 30;
-	private Concept<T> _cSpace;
-	private KSpace<Knowledge<S>> _kSpace;
-	private boolean[][] _ckLinks;
-	private int _cSize;
 	
-
+	//L'espace C est un concept (qui comporte l'ensemble de l'arborescence.)
+	private Concept<T> _cSpace;
+	
+	//L'espace K: un vecteur
+	private KSpace<Knowledge<S>> _kSpace;
+	
+	// Un tableau a double entrée pour les liens entre C et K
+	private boolean[][] _ckLinks;
+	
+	// Nombre de concepts et de knowledge
+	private int _cSize;
+	private int _kSize;
+	
+	//Constructeur
 	public CKModel(){
 		setCSpace(new Concept<T>());
 		setKSpace(new KSpace<Knowledge<S>>());
 		setCKLinks(new boolean[_size][_size]);
 		setCSize(1);
 	}
-
+	
+	/*
+	 * Getters et Setters
+	 */
+	
 	/**
 	 * @param _cSpace the _cSpace to set
 	 */
@@ -81,19 +97,35 @@ public class CKModel<T,S> {
 		return _cSize;
 	}
 
-	public void setElementKSpace(Knowledge<S> knowledge){
-		_kSpace.add(knowledge);
-	}
-	
-	public void removeElementKSpace(Knowledge<S> knowledge){
-		_kSpace.remove(knowledge);
-		removeLinks(knowledge);
+	/**
+	 * @param _kSize the _kSize to set
+	 */
+	public void setKSize(int _kSize) {
+		this._kSize = _kSize;
 	}
 
-	public void addConcept(Concept<T> concept){
-		_cSpace.addChild(concept);
-		_cSize++;
+	/**
+	 * @return the _kSize
+	 */
+	public int getKSize() {
+		return _kSize;
 	}
+
+	/*
+	 * Les opérateurs
+	 */
+	// K->K
+	public void addKnowledge(Knowledge<S> knowledge){
+		_kSpace.add(knowledge);
+		_kSize++;
+	}
+	
+	public void removeKnowledge(Knowledge<S> knowledge){
+		_kSpace.remove(knowledge);
+		removeLinks(knowledge);
+		_kSize--;
+	}
+	
 	
 	public void removeConcept(int i){
 		_cSpace.removeChildAt(i);
@@ -101,6 +133,21 @@ public class CKModel<T,S> {
 		removeLinks(i);
 	}
 	
+	//C->C
+	public void partition(Concept<T> child, Concept<T> parent){
+		if(_cSpace.researchIdConcept(parent.getIndex()).getIndex() != -1){
+		parent.addChild(child);
+		_cSize++;
+		}
+	}
+	
+	public void departition(Concept<T> nouveauC0){
+		nouveauC0.addChild(this._cSpace);
+		this.setCSpace(nouveauC0);
+		_cSize++;
+	}
+	
+	//C->K et K->C
 	public void addLink(Concept<T> concept, Knowledge<S> knowledge){
 		if(_cSpace.researchIdConcept(concept.getIndex()).getIndex() != -1){
 			_ckLinks[knowledge.getIndex()][concept.getIndex()] =  true;
@@ -123,25 +170,18 @@ public class CKModel<T,S> {
 		}
 	}
 	
-	public void partition(Concept<T> child, Concept<T> parent){
-		if(_cSpace.researchIdConcept(parent.getIndex()).getIndex() != -1){
-		parent.addChild(child);
-		_cSize++;
-		}
-	}
-	
-	public void departition(Concept<T> nouveauC0){
-		nouveauC0.addChild(this._cSpace);
-		this.setCSpace(nouveauC0);
-	}
+	/*
+	 * Méthodes de visualisation
+	 */
 	
 	public String toString(){
 		return "C-Space : " + _cSpace.toStringArborescence() +"\nK-Space : " + _kSpace.toString();
 	}
 	
+	// Méthode pour afficher le modèle sous forme texte.
 	public void print(){
 		
-		
+		// Afficher l'espace C avec les K associés entre parenthèse
 		for (int i=0; i<_cSize; i++){
 			System.out.print(_cSpace.researchIdConcept(i).toString() + "( ");
 			for (int j=0; j<_kSpace.size(); j++){
@@ -153,7 +193,8 @@ public class CKModel<T,S> {
 		}
 		
 		System.out.println("\n");
-
+		
+		//Afficher l'espace K avec les C associés entre parenthèse
 		for(int i=0; i<_kSpace.size(); i++){
 			System.out.print(_kSpace.elementAt(i).toString() + "( ");
 			for(int j=0; j<_cSize; j++){
@@ -166,42 +207,56 @@ public class CKModel<T,S> {
 		
 	}
 	
+	// TODO: a quoi sert cette fonction?
 	public String researchDataConcept(T data){
 		return _cSpace.researchDataConcept(data).toString();
 	}
 	
-	public void replace(Concept<T> oldParent, Concept<T> child, Concept<T> newParent){
-		
+	// permet de déplacer un sous-arbre vers un autre endroit
+	public void moveSubTree(Concept<T> oldParent, Concept<T> child, Concept<T> newParent){
 		newParent.addChild(child);
 		oldParent.removeChild(child);
-		
 	}
 	
 	 public List<Concept<T>> researchData(T data){
 		 return _cSpace.researchDataConcept(data);
 	 }
 	
-	 public Concept<T> researchIdConcept(int i){
+	 public Concept<T> findConceptFromId(int i){
 		 return _cSpace.researchIdConcept(i);
 	 }
 	 
-	 public void save() throws FileNotFoundException{
+	 public void save() {
+		save(Consts.DEFAULT_FILENAME);
+	 }
+	 
+	 /*
+	  * Méthodes pour enregistrer et charger le modèle dans un fichier XML
+	  */
+	public void save(String filename) {
 		 
-		 XMLEncoder enc = new XMLEncoder(new FileOutputStream("fichier.xml"));
-
-		enc.writeObject(_cSpace);
+		 XMLEncoder enc;
+		 
+		try {
+			enc = new XMLEncoder(new FileOutputStream(filename));
+			enc.writeObject(_cSpace);
 			enc.flush();
 		enc.writeObject(_kSpace);
 			enc.flush();
 		enc.writeObject(_ckLinks);
 			enc.flush();
 			enc.close();
-	 }
-	 
-	 
-	 public void load() throws FileNotFoundException{
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void load(String filename) throws FileNotFoundException{
 		 
-		XMLDecoder dec = new XMLDecoder(new FileInputStream("fichier.xml"));
+		XMLDecoder dec = new XMLDecoder(new FileInputStream(filename));
 		for (int i=0; i<3; i++){
 			
 			 Object o = dec.readObject();
@@ -223,7 +278,4 @@ public class CKModel<T,S> {
 		
 	 }
 	 
-	 
-	
-
 }

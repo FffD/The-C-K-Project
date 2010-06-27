@@ -24,6 +24,11 @@ public class PanelCK extends JPanel {
 	}
 		
 	public void paint (Graphics g){
+		
+		//TODO : Séparer et commenter le code. Faire en sorte que ce soit plus facile à comprendre
+		// Fonctions: drawC et drawK
+		// Mettre toutes les constantes que tu utilise dans le code en séparée avec celles du Haut + mettre en majuscule avec des noms explicites.
+		// Commenter le code pour guider le lecteur :-)
 		g.drawLine(this.getWidth()/2, 0, this.getWidth()/2, this.getHeight());
 		g.drawString("Concept",this.getWidth()/5, 20);
 		g.drawString("Knowledge",(int) (this.getWidth()/1.40), 20);
@@ -66,8 +71,8 @@ public class PanelCK extends JPanel {
 		int center =  center(_modele.getCSpace());
 		
 		for (int i=0; i<_modele.getCSize(); i++){
-			g.drawOval(_modele.researchIdConcept(i).getPositionX() + center,_modele.researchIdConcept(i).getPositionY() , LARGEURELLIPSE, LONGUEURELLIPSE);
-			g.drawString(_modele.researchIdConcept(i).getData(), _modele.researchIdConcept(i).getPositionX() + center + (LARGEURELLIPSE/5), _modele.researchIdConcept(i).getPositionY() +(2* (LONGUEURELLIPSE/3)));
+			g.drawOval(_modele.findConceptFromId(i).getPositionX() + center,_modele.findConceptFromId(i).getPositionY() , LARGEURELLIPSE, LONGUEURELLIPSE);
+			g.drawString(_modele.findConceptFromId(i).getData(), _modele.findConceptFromId(i).getPositionX() + center + (LARGEURELLIPSE/5), _modele.findConceptFromId(i).getPositionY() +(2* (LONGUEURELLIPSE/3)));
 		}	
 		drawEdge(g, _modele.getCSpace(), center);
 		
@@ -75,7 +80,7 @@ public class PanelCK extends JPanel {
 		for (int i=0; i<_modele.getCSize(); i++){
 			for (int j=0; j<_modele.getKSpace().size(); j++){
 				if(_modele.getCKLinks()[i][j]){
-					g.drawLine(_modele.researchIdConcept(i).getPositionX() + center + LARGEURELLIPSE, _modele.researchIdConcept(i).getPositionY() + (LONGUEURELLIPSE/2), (this.getWidth()/2) + 20,  _modele.getKSpace().elementAt(j).getPosition().y );
+					g.drawLine(_modele.findConceptFromId(i).getPositionX() + center + LARGEURELLIPSE, _modele.findConceptFromId(i).getPositionY() + (LONGUEURELLIPSE/2), (this.getWidth()/2) + 20,  _modele.getKSpace().elementAt(j).getPosition().y );
 				}
 			}
 		}
